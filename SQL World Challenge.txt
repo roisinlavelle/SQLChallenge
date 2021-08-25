@@ -1,0 +1,47 @@
+#1
+SELECT COUNT(name) FROM country WHERE region='North America';
+#2
+SELECT population, lifeexpectancy FROM country WHERE name='Argentina';
+#3
+SELECT name, lifeexpectancy FROM country WHERE lifeexpectancy =(SELECT MAX(lifeexpectancy) FROM country) IS NOT NULL
+ORDER BY lifeexpectancy DESC LIMIT 1;
+#4
+SELECT ci.name FROM city ci JOIN country co ON ci.id=co.capital WHERE co.name='Spain';
+#5
+SELECT la.language FROM country co JOIN countrylanguage la ON co.code=la.countrycode WHERE co.region='Southeast Asia';
+#6
+SELECT * FROM city WHERE name LIKE 'F%' LIMIT 25;
+#7
+SELECT COUNT(ci.name) FROM city ci JOIN country co ON ci.countrycode=co.code WHERE co.name='China';
+#8
+SELECT name, population FROM country WHERE population =(SELECT MIN(population) FROM country) IS NOT NULL
+ORDER BY population ASC LIMIT 1;
+#9
+SELECT COUNT(name) FROM country;
+#10
+SELECT name, surfacearea FROM country ORDER BY surfacearea DESC LIMIT 10;
+#11
+SELECT ci.name, ci.population FROM city ci JOIN country co ON ci.countrycode=co.code WHERE co.name='Japan'; 
+#12
+
+#13
+
+#14
+SELECT DISTINCT language FROM countrylanguage;
+#15
+SELECT name, GNP FROM country WHERE GNP =(SELECT MAX(GNP) FROM country) IS NOT NULL
+ORDER BY GNP DESC LIMIT 10;
+#16
+
+#17
+
+#18
+SELECT name, lifeexpectancy FROM country WHERE lifeexpectancy =(SELECT MIN(lifeexpectancy) FROM country) IS NOT NULL
+ORDER BY lifeexpectancy ASC LIMIT 1;
+#19
+
+#20
+SELECT GovernmentForm, COUNT(GovernmentForm) AS Most_Frequent
+FROM country
+GROUP BY GovernmentForm
+ORDER BY COUNT(GovernmentForm) DESC LIMIT 3;
