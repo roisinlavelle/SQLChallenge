@@ -1,0 +1,147 @@
+#1
+SELECT DISTINCT first_name, last_name 
+FROM actor;
+
+#2
+SELECT last_name FROM actor 
+WHERE first_name='John';
+
+#3
+SELECT * FROM actor 
+WHERE last_name='Neeson';
+
+#4
+SELECT *
+FROM (
+    SELECT First_Name, Last_Name, Actor_ID, (Actor_ID/10) AS Divisible
+    FROM actor
+    WHERE Actor_ID IS NOT NULL
+    AND Actor_ID!=0
+) AS Actor_IDDivisibleBy10;
+
+#5
+SELECT description 
+FROM film 
+WHERE film_id='100'; 
+
+#6
+SELECT title, rating 
+FROM film 
+WHERE rating='R';
+
+#7
+SELECT title, rating FROM film
+WHERE Rating!='R';
+
+#8
+SELECT title
+FROM film
+ORDER BY length ASC
+LIMIT 10;
+
+#9
+SELECT title, length
+FROM film
+WHERE length=(
+    SELECT MAX(length)
+    FROM film
+    WHERE length!=0
+);
+
+#10
+SELECT title 
+FROM film 
+WHERE special_features='Deleted Scenes';
+
+#11
+SELECT last_name, COUNT(last_name)
+FROM actor
+GROUP BY last_name
+HAVING COUNT(last_name)=1
+ORDER BY last_name DESC;
+
+#12
+SELECT last_name, COUNT(last_name)
+FROM actor
+GROUP BY last_name 
+HAVING COUNT(last_name) > 1
+ORDER BY COUNT(last_name) DESC;
+
+#13
+SELECT actors, COUNT(actors) AS Frequency
+FROM film_list
+GROUP BY actors
+ORDER BY COUNT(actors) DESC;
+ SELECT actors, COUNT(actors) AS Appearances
+FROM film_list
+GROUP BY actors
+ORDER BY Appearances DESC;
+
+#14
+SELECT return_date
+FROM rental r
+JOIN inventory i 
+ON i.inventory_id=r.inventory_id
+WHERE i.film_id=1;
+
+SELECT return_date 
+FROM rental r
+JOIN inventory i
+      ON i.inventory_id=r.inventory_id
+JOIN film f
+      ON i.inventory_id=f.film_id
+WHERE f.film_id=1;
+
+#15
+SELECT AVG(length) FROM film;
+
+#16
+SELECT AVG(f.length)
+FROM film_category fc
+JOIN film f ON fc.category_id = f.film_id;
+
+#17
+SELECT * FROM film_text
+WHERE description LIKE '%robot%';
+
+#18
+SELECT COUNT(Release_Year)
+FROM film
+WHERE Release_Year='2010';
+
+#19
+SELECT title FROM film_list
+WHERE category='Horror';
+
+#20
+SELECT first_name, last_name
+FROM staff
+WHERE staff_id='2';
+
+#21
+SELECT title 
+FROM film_list
+WHERE actors LIKE '%Fred Costner%';
+
+#22
+SELECT DISTINCT COUNT(c.country)
+FROM country c
+JOIN city ci ON c.country_id = ci.city_id;
+SELECT COUNT( DISTINCT country) FROM country;
+
+#23
+SELECT name
+FROM language
+ORDER BY name DESC;
+
+#24
+SELECT first_name, last_name
+FROM actor
+WHERE last_name LIKE '%son'
+ORDER BY first_name ASC;
+
+#25
+SELECT category, COUNT(category) AS Frequency
+FROM film_list
+GROUP BY category
+ORDER BY COUNT(actors) DESC LIMIT 1;
